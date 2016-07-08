@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import argparse
-import getpass
 from khan.mongodb_client import MongoDB
 from khan.commands import command_factory
 from khan.formatter import formatter_factory
@@ -73,6 +72,7 @@ def main():
     parameters = arg_parse()
 
     if not parameters.password:
+        import getpass
         parameters.password = getpass.getpass("Enter password: ")
 
     connection = MongoDB(
