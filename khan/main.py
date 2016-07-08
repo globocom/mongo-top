@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import argparse
+import getpass
 from khan.mongodb_client import MongoDB
 from khan.commands import command_factory
 from khan.formatter import formatter_factory
@@ -36,7 +37,7 @@ def arg_parse():
     parser.add_argument(
         "-p", dest='password',
         help="Database password",
-        required=True
+        required=False
     )
     parser.add_argument(
         "-r", dest='refresh',
@@ -70,6 +71,9 @@ def arg_parse():
 
 def main():
     parameters = arg_parse()
+
+    if not parameters.password:
+        parameters.password = getpass.getpass("Enter password: ")
 
     connection = MongoDB(
         host=parameters.host, port=parameters.host,
